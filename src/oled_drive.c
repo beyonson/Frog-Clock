@@ -131,7 +131,6 @@ void print_buffer(char i2c, uint8_t *buffer[][128])
 void oled_msg(char i2c, char Ypos, char Xpos, char str[])
 {
 	oled_pos(i2c, Ypos, Xpos);
-	
 	oled_print(i2c, str);
 }
 
@@ -159,19 +158,21 @@ void oled_clear_buffer(uint8_t *buffer[][128])
 	{
 		for (j=0; j<128; j++)
 		{
-			*buffer[i][j] = 0;
+			buffer[i][j] = 0;
 		}
 	}
 }
 
 void oled_update_buffer(Img_TypeDef *img, unsigned short img_num, uint8_t *buffer[][128])
 {
-	int x_dir, y_dir;
-	for (y_dir = 0; y_dir<8; y_dir++) 
+	int i, j, cnt;
+	cnt = 0;
+	for (i = 0; i<8; i++) 
 	{
-		for (x_dir = 0; x_dir<128; x_dir++)
+		for (j = 0; j<128; j++)
 		{
-			*buffer[y_dir][x_dir] = 1;		
+			cnt += 1;
+			buffer[i][j] = Goku2[cnt];	
 		}
 	}
 }

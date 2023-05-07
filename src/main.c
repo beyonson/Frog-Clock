@@ -7,7 +7,6 @@ uint8_t *oled_buffer[8][128];
 
 int main(void)
 {
-	RCC->CFGR = 0x00240002;
 	systick_init();
 	// set up OLED
 	oled_init(2);
@@ -16,17 +15,16 @@ int main(void)
 
 	// create image
 	Img_TypeDef *weew;
-	weew->h = weew_stack_rows;
-	weew->w = weew_stack_cols;
-	weew->x_pos = 0;
-	weew->y_pos = 0;
-	weew->image[0] = weew_stack;
+	// weew->h = saitama_rows;
+	// weew->w = saitama_cols;
+	// weew->x_pos = 0;
+	// weew->y_pos = 0;
+	// weew->image[0] = saitama;
 
 	// // fill frame buffer
-	// oled_clear_buffer(oled_buffer);
-	// oled_update_buffer(weew, 0, oled_buffer);
-	// print_buffer(2, oled_buffer);
-	oled_print(2, "something long as hel i am trying to make this huge, like fill the whole damn screen huge, bu ti feel like it will still scroll, i need to mess with the clock speed i think");
+	oled_clear_buffer(oled_buffer);
+	oled_update_buffer(weew, 0, oled_buffer);
+	print_buffer(2, oled_buffer);
 
 	while(1){}
 }
