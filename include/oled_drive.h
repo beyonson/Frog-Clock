@@ -22,10 +22,9 @@ void oled_print(char i2c, char str[]);
 void oled_msg(char i2c, char Ypos, char Xpos, char str[]);
 void oled_Aprint(char i2c, int asc);
 void oled_clock(char i2c, int time);
-void oled_clear_buffer(uint8_t buffer[][128]);
-void oled_update_buffer(Img_TypeDef img, unsigned short img_num, uint8_t buffer[][128]);
-void update_str_buffer(short Ypos, short Xpos,char str[], uint8_t screen_buffer[][128]);
-void print_buffer(char i2c, uint8_t buffer[][128]);
+void oled_clear_buffer(uint8_t *buffer[][128]);
+void oled_update_buffer(Img_TypeDef *img, unsigned short img_num, uint8_t *buffer[][128]);
+void print_buffer(char i2c, uint8_t *buffer[][128]);
 
 // Adding img data
 static unsigned short weew_stack_rows = 6;

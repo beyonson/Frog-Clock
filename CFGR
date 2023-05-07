@@ -1,0 +1,5 @@
+src/main.c:10:	RCC->CFGR = 0x00240000;
+src/i2c_drive.c:6:	RCC->APB2ENR |= 1; 
+src/i2c_drive.c:11:		RCC->APB1ENR |= 0x200000; 
+src/i2c_drive.c:28:		RCC->APB1ENR |= 0x400000; 
+src/gpio_drive.c:13:    RCC->APB2ENR |= (1 << (gpio + 1));

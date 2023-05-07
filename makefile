@@ -1,6 +1,6 @@
 default_target: all
 
-C_COMPILE_OPTS = -mcpu=cortex-m3 -S -mthumb -fno-builtin
+C_COMPILE_OPTS = -mcpu=cortex-m3 -S -mthumb -ffreestanding
 AS_COMPILE_OPTS = -mcpu=cortex-m3
 INCLUDE_DIRS = -Iinclude
 
