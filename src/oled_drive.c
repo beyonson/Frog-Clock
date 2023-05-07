@@ -25,7 +25,6 @@ void oled_cmd_2byte(char i2c, char data[])
 	i2c_stop(i2c);
 }
 
-
 // oled initialization
 void oled_init(char i2c)
 {
@@ -112,6 +111,20 @@ void oled_print(char i2c, char str[])
 	}
 }
 
+//print buffer
+void print_buffer(char i2c, uint8_t buffer[][128])
+{
+	oled_pos(i2c,0,0);
+	int i,j;
+	for (i=0;i<6;i++)
+	{
+		for(j=0;j<84;j++)
+		{
+			oled_data(i2c,buffer[i][j]);
+		}
+	}
+}
+
 
 // message
 void oled_msg(char i2c, char Ypos, char Xpos, char str[])
@@ -137,3 +150,80 @@ void oled_clock(char i2c, int time)
 	oled_Aprint(i2c, ((time/10)%10)+16);
 	oled_Aprint(i2c, (time%10)+16);
 }
+
+void oled_clear_buffer(uint8_t buffer[][128])
+{
+	int i, j;
+	for (i=0; i<8; i++)
+	{
+		for (j=0; j<128; j++)
+		{
+			buffer[i][j] = 0;
+		}
+	}
+}
+
+void oled_update_buffer(Img_TypeDef img, unsigned short img_num, uint8_t buffer[][128])
+{
+int x_dir, y_dir, endx,endy, cnt;
+	if((img.w+img.x_pos)>128)
+	{
+		endx = 127;
+	}
+	else
+		{
+			endx = img.w+img.x_pos-1;
+		}
+	if((img.h+ img.y_pos)>8)
+	{
+		endy = 7;
+	}
+	else
+		{
+			endy = img.h+img.y_pos-1;
+		}
+	cnt = 0;
+		for(y_dir = img.y_pos;y_dir<=endy;y_dir++)
+		{
+			for (x_dir= img.x_pos;x_dir <= endx; x_dir ++)
+			{
+				cnt =(y_dir-img.y_pos)*img.w +x_dir-img.x_pos;
+				buffer[y_dir][x_dir] = img.image[img_num][cnt];
+			}
+		}
+}
+
+void update_str_buffer(short Ypos, short Xpos,char str[], uint8_t screen_buffer[][128])
+{
+int i,j, cnt_col,cnt_row;
+	
+cnt_col= Xpos;
+cnt_row = Ypos;
+i=0;
+	while(str[i])
+	{
+		if(cnt_row>8)
+		{break;}
+		for(j=0;j<8;j++)
+		{
+			screen_buffer[cnt_row][cnt_col] = ASCII[str[i]-32][j];
+			if((cnt_col+1)>127)
+			{
+				if((cnt_row+1)>8)
+				{
+					break;
+				}
+				else{
+					cnt_row ++;
+					cnt_col = Xpos;
+				}
+			}
+			else
+				{
+				 cnt_col ++;
+				}
+		}
+		i++;
+	}
+}
+

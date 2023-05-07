@@ -1,6 +1,6 @@
 default_target: all
 
-C_COMPILE_OPTS = -mcpu=cortex-m3 -S -mthumb --specs=nosys.specs
+C_COMPILE_OPTS = -mcpu=cortex-m3 -S -mthumb -fno-builtin
 AS_COMPILE_OPTS = -mcpu=cortex-m3
 INCLUDE_DIRS = -Iinclude
 

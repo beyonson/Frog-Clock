@@ -1,3 +1,6 @@
+#ifndef __I2C_DRIVE_H
+#define __I2C_DRIVE_H
+
 #include "stm32f103.h"
 #include "gpio_drive.h"
 #include "systick_time.h"
@@ -13,3 +16,4 @@ void i2c_data(char i2c, char data);
 void i2c_stop(char i2c);
 
 
+#endif // __I2C_DRIVE_H
