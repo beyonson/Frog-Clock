@@ -4,8 +4,6 @@ MEMORY
     RAM (rwx) : ORIGIN = 0x20000000, LENGTH = 20K
 }
 
-__reset_stack_pointer = ORIGIN(RAM) + LENGTH(RAM);
-
 SECTIONS
 {
     PROVIDE( _stack_ptr = ORIGIN(RAM) + LENGTH(RAM));

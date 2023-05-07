@@ -7,12 +7,14 @@ void delay(void);
 
 int main(void)
 {
+	RCC->CFGR &= 0xFFFFF8FF;
+	RCC->CFGR |= 0x00000400;
 	initGPIO(C, 13, OUTPUT50, GP_PP);
 	systick_init();
+
 	oled_init(2);
 
 	toggleGPIO(C, 13);
-
 	while(1){
 	}
 }
