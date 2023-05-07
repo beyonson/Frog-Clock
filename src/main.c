@@ -2,55 +2,38 @@
 #include "i2c_drive.h"
 #include "oled_drive.h"
 
-void clock(char i2c, int time);
+
+int main(void);
+void delay(void);
+
+void Reset_Handler(void)
+{
+    main();
+
+    while(1){}
+}
+
+void SysTick_Handler(void)
+{
+	toggleGPIO(C, 13);
+}
 
 int main(void)
 {
-	
-	systick_init();
-	oled_init(2);
-	
-	DelayMs(2000);
-	oled_blank(2);
-	
-	clock(2, 544);
-	
-	while(1)
-	{
-		
-	}
-	
+	initGPIO(C, 13, OUTPUT50, GP_PP);
+	systick_int_start();
+
+	// i2c_init(2, i2c_FM);
+	// i2c_start(2);
+	// i2c_stop(2);
+	toggleGPIO(C, 13);
+
+	while(1){}
 }
 
-void clock(char i2c, int time)
+void delay(void)
 {
-	int hours = time/100;
-	int minutes = time%100;
-	int seconds = 0;
-
-	while(1)
-	{
-		if(seconds==60)
-		{
-			minutes++;
-			seconds=0;
-		}
-		if(minutes==60)
-		{
-			hours++;
-			minutes=0;
-		}
-		if(hours==24)
-		{
-			hours=0;
-		}
-		seconds++;
-		
-		oled_pos(i2c, 4, 50);
-		oled_clock(i2c, hours);
-		oled_print(i2c, ":");
-		oled_clock(i2c, minutes);
-		DelayMs(995);
-	}
+    for(int i=0; i<300000; i++){}
 }
+
 

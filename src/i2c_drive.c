@@ -11,8 +11,8 @@ void i2c_init(char i2c, unsigned short speed_mode)
 		RCC->APB1ENR |= 0x200000; 
 		
 		// pin enable
-		init_GP(PB, 6, OUT50, O_AF_OD);
-		init_GP(PB, 7, OUT50, O_AF_OD);
+		initGPIO(B, 6, OUTPUT50, AF_OD);
+		initGPIO(B, 7, OUTPUT50, AF_OD);
 		I2C1->CR1 |= 0x8000;
 		I2C1->CR1 &= ~0x8000;
 		I2C1->CR2 = 0x8;
@@ -28,8 +28,8 @@ void i2c_init(char i2c, unsigned short speed_mode)
 		RCC->APB1ENR |= 0x400000; 
 		
 		// pin enable
-		init_GP(PB, 10, OUT50, O_AF_OD);
-		init_GP(PB, 11, OUT50, O_AF_OD);
+		initGPIO(B, 10, OUTPUT50, AF_OD);
+		initGPIO(B, 11, OUTPUT50, AF_OD);
 		I2C2->CR1 |= 0x8000;
 		I2C2->CR1 &= ~0x8000;
 		I2C2->CR2 = 0x8;

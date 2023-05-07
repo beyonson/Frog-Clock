@@ -1,5 +1,15 @@
-#include "stm32f10x.h" 
+#include "stm32f103.h" 
 #include "systick_time.h"
+
+void __disable_irq(void)
+{
+    NVIC->ICER[8U] &= 0x00000000;
+}
+
+void __enable_irq(void)
+{
+    NVIC->ISER[8U] |= 0xFFFFFFFF;
+}
 
 void systick_init(void)
 {
