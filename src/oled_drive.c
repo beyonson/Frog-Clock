@@ -16,13 +16,13 @@ void oled_cmd_2byte(char i2c, char data[])
 {
 	int i=0;
 	i2c_start(i2c);
-	i2c_add(i2c, 0x78, 0); // choosing oled address
+	//i2c_add(i2c, 0x78, 0); // choosing oled address
 	
-	i2c_data(i2c, 0x00); // send command
-	for(i=0; i<2; i++)
-		{i2c_data(i2c, data[i]);}
+	// i2c_data(i2c, 0x00); // send command
+	// for(i=0; i<2; i++)
+	// 	{i2c_data(i2c, data[i]);}
 	
-	i2c_stop(i2c);
+	// i2c_stop(i2c);
 }
 
 
@@ -36,27 +36,27 @@ void oled_init(char i2c)
 	char cmd1[] = {0xD3, 0x00};
 	oled_cmd_2byte(i2c, cmd1);
 	
-	oled_cmd_1byte(i2c, 0x40);
-	oled_cmd_1byte(i2c, 0xA1);
-	oled_cmd_1byte(i2c, 0xC8);
+	// oled_cmd_1byte(i2c, 0x40);
+	// oled_cmd_1byte(i2c, 0xA1);
+	// oled_cmd_1byte(i2c, 0xC8);
 	
-	char cmd2[] = {0xDA, 0x12};
-	oled_cmd_2byte(i2c, cmd2);
-	char cmd3[] = {0x81, 0x7F};
-	oled_cmd_2byte(i2c, cmd3);
+	// char cmd2[] = {0xDA, 0x12};
+	// oled_cmd_2byte(i2c, cmd2);
+	// char cmd3[] = {0x81, 0x7F};
+	// oled_cmd_2byte(i2c, cmd3);
 	
-	oled_cmd_1byte(i2c, 0xA4);
-	oled_cmd_1byte(i2c, 0xA6);
+	// oled_cmd_1byte(i2c, 0xA4);
+	// oled_cmd_1byte(i2c, 0xA6);
 
-	char cmd4[] = {0xD5, 0x80};
-	oled_cmd_2byte(i2c, cmd4);
-	char cmd5[] = {0x8D, 0x14};
-	oled_cmd_2byte(i2c, cmd5);
+	// char cmd4[] = {0xD5, 0x80};
+	// oled_cmd_2byte(i2c, cmd4);
+	// char cmd5[] = {0x8D, 0x14};
+	// oled_cmd_2byte(i2c, cmd5);
 	
-	oled_cmd_1byte(i2c, 0xAF);
+	// oled_cmd_1byte(i2c, 0xAF);
 	
-	char cmd6[] = {0x20, 0x10};
-	oled_cmd_2byte(i2c, cmd6);
+	// char cmd6[] = {0x20, 0x10};
+	// oled_cmd_2byte(i2c, cmd6);
 }
 
 

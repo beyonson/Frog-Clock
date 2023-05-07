@@ -79,8 +79,8 @@ typedef struct
 #define GPIOC_BASE  (vol uint32_t)0x40011000
 
 // I2C bases
-#define I2C1_BASE   (vol uint32_t)0x400057FF
-#define I2C2_BASE   (vol uint32_t)0x40005BFF
+#define I2C1_BASE   (vol uint32_t)0x40005400
+#define I2C2_BASE   (vol uint32_t)0x40005800
 
 // SysTick base
 #define SCS_BASE    (vol uint32_t)0xE000E000

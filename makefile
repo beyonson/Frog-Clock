@@ -27,7 +27,7 @@ LDFLAGS = -Tstm32f103.ld
 OBJCP = arm-none-eabi-objcopy
 OBJCPFLAGS = -O binary
 
-all: $(C_OBJECTS) $(AS_OBJECTS) build/main.elf build/main.bin
+all: $(C_OBJECTS) $(AS_OBJECTS) build/main.elf build/main.bin build/main.list
 .PHONY: all
 
 $(C_OBJECTS): $(BUILD_DIR)%.s : $(SOURCE_DIR)%.c
@@ -42,3 +42,9 @@ $(BUILD_DIR)main.elf: $(AS_OBJECTS)
 $(BUILD_DIR)main.bin: $(BUILD_DIR)main.elf
 	$(OBJCP) $(OBJCPFLAGS) $< $@
 
+$(BUILD_DIR)main.list: $(BUILD_DIR)main.elf
+	arm-none-eabi-objdump -D build/main.elf > build/main.list
+	$(MAKE) clean
+
+clean:
+	-rm build/*.o build/*.s

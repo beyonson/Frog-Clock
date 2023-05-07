@@ -33,7 +33,6 @@ void DelayUs(unsigned long t)
 		}
 }
 
-
 void DelayMillis(void)
 {
 	SysTick->LOAD = 0x11940;
@@ -53,7 +52,7 @@ void systick_int_start(void)
 {
 	__disable_irq();
 	SysTick->CTRL = 0;
-	SysTick->LOAD = 7200000;
+	SysTick->LOAD = 7200000 - 1;
 	SysTick->VAL = 0;
 	SysTick->CTRL |= 7;
 	__enable_irq();
