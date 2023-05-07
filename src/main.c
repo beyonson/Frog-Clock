@@ -2,21 +2,8 @@
 #include "i2c_drive.h"
 #include "oled_drive.h"
 
-
 int main(void);
 void delay(void);
-
-void Reset_Handler(void)
-{
-    main();
-
-    while(1){}
-}
-
-void SysTick_Handler(void)
-{
-	toggleGPIO(C, 13);
-}
 
 int main(void)
 {

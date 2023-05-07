@@ -115,38 +115,6 @@ ASCII:
 	.ascii	"xFAFx"
 	.text
 	.align	1
-	.global	reset_handler
-	.syntax unified
-	.thumb
-	.thumb_func
-	.type	reset_handler, %function
-reset_handler:
-	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 1, uses_anonymous_args = 0
-	push	{r7, lr}
-	add	r7, sp, #0
-	bl	main
-.L2:
-	b	.L2
-	.size	reset_handler, .-reset_handler
-	.align	1
-	.global	systick_handler
-	.syntax unified
-	.thumb
-	.thumb_func
-	.type	systick_handler, %function
-systick_handler:
-	@ args = 0, pretend = 0, frame = 0
-	@ frame_needed = 1, uses_anonymous_args = 0
-	push	{r7, lr}
-	add	r7, sp, #0
-	movs	r1, #13
-	movs	r0, #3
-	bl	toggleGPIO
-	nop
-	pop	{r7, pc}
-	.size	systick_handler, .-systick_handler
-	.align	1
 	.global	main
 	.syntax unified
 	.thumb
@@ -166,8 +134,8 @@ main:
 	movs	r1, #13
 	movs	r0, #3
 	bl	toggleGPIO
-.L5:
-	b	.L5
+.L2:
+	b	.L2
 	.size	main, .-main
 	.align	1
 	.global	delay
@@ -184,16 +152,16 @@ delay:
 	add	r7, sp, #0
 	movs	r3, #0
 	str	r3, [r7, #4]
-	b	.L7
-.L8:
+	b	.L4
+.L5:
 	ldr	r3, [r7, #4]
 	adds	r3, r3, #1
 	str	r3, [r7, #4]
-.L7:
+.L4:
 	ldr	r3, [r7, #4]
-	ldr	r2, .L9
+	ldr	r2, .L6
 	cmp	r3, r2
-	ble	.L8
+	ble	.L5
 	nop
 	nop
 	adds	r7, r7, #12
@@ -201,9 +169,9 @@ delay:
 	@ sp needed
 	pop	{r7}
 	bx	lr
-.L10:
+.L7:
 	.align	2
-.L9:
+.L6:
 	.word	299999
 	.size	delay, .-delay
 	.ident	"GCC: (Arm GNU Toolchain 12.2.Rel1 (Build arm-12.24)) 12.2.1 20221205"
