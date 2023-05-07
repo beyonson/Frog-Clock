@@ -11,8 +11,8 @@ void i2c_init(char i2c, unsigned short speed_mode)
 		RCC->APB1ENR |= 0x200000; 
 		
 		// pin enable
-		init_GP(PB, 6, OUT50, O_AF_OD);
-		init_GP(PB, 7, OUT50, O_AF_OD);
+		initGPIO(B, 6, OUTPUT50, AF_OD);
+		initGPIO(B, 7, OUTPUT50, AF_OD);
 		I2C1->CR1 |= 0x8000;
 		I2C1->CR1 &= ~0x8000;
 		I2C1->CR2 = 0x8;
@@ -22,14 +22,14 @@ void i2c_init(char i2c, unsigned short speed_mode)
 		I2C1->TRISE = 0x9;
 		
 		// enable register
-		I2C1->CR1 |= 1;
-	}	else {
+		I2C1->CR1 |= 0x1;
+	} else {
 		// enable i2c1 clock
 		RCC->APB1ENR |= 0x400000; 
 		
 		// pin enable
-		init_GP(PB, 10, OUT50, O_AF_OD);
-		init_GP(PB, 11, OUT50, O_AF_OD);
+		initGPIO(B, 10, OUTPUT50, AF_OD);
+		initGPIO(B, 11, OUTPUT50, AF_OD);
 		I2C2->CR1 |= 0x8000;
 		I2C2->CR1 &= ~0x8000;
 		I2C2->CR2 = 0x8;
@@ -39,18 +39,18 @@ void i2c_init(char i2c, unsigned short speed_mode)
 		I2C2->TRISE = 0x9;
 		
 		// enable register
-		I2C2->CR1 |= 1;
+		I2C2->CR1 |= 0x1;
 	}
 }
 
 // sending the address and r/w
 void i2c_add(char i2c, char address, char RW)
 {
-	volatile  int tmp;
+	volatile int tmp;
 	if (i2c==1) 
 	{
 		I2C1->DR = (address|RW);
-		while((I2C1->SR1 & 2)==0);
+		while((I2C1->SR1 & 2)==0){}
 		while(I2C1->SR1 & 2) 
 		{
 			tmp = I2C1->SR1;
@@ -61,7 +61,7 @@ void i2c_add(char i2c, char address, char RW)
 	} else if (i2c==2) 
 	{
 		I2C2->DR = (address|RW);
-		while((I2C2->SR1 & 2)==0);
+		while((I2C2->SR1 & 2)==0){}
 		while(I2C2->SR1 & 2) 
 		{
 			tmp = I2C2->SR1;
