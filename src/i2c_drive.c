@@ -50,11 +50,7 @@ void i2c_add(char i2c, char address, char RW)
 	if (i2c==1) 
 	{
 		I2C1->DR = (address|RW);
-		while((I2C1->SR1 & 2)==0)
-		{
-			toggleGPIO(C, 13);
-			DelayMs(100);
-		}
+		while((I2C1->SR1 & 2)==0){}
 		while(I2C1->SR1 & 2) 
 		{
 			tmp = I2C1->SR1;
@@ -65,11 +61,7 @@ void i2c_add(char i2c, char address, char RW)
 	} else if (i2c==2) 
 	{
 		I2C2->DR = (address|RW);
-		while((I2C2->SR1 & 2)==0)
-		{
-			toggleGPIO(C, 13);
-			DelayMs(100);
-		}
+		while((I2C2->SR1 & 2)==0){}
 		while(I2C2->SR1 & 2) 
 		{
 			tmp = I2C2->SR1;
