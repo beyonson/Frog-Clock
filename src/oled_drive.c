@@ -113,7 +113,7 @@ void oled_print(char i2c, char str[])
 }
 
 //print buffer
-void print_buffer(char i2c, uint8_t *buffer[][128])
+void print_buffer(char i2c, uint8_t buffer[][128])
 {
 	oled_pos(i2c,0,0);
 	int i,j;
@@ -121,8 +121,7 @@ void print_buffer(char i2c, uint8_t *buffer[][128])
 	{
 		for(j=0;j<128;j++)
 		{
-			oled_pos(i2c,i,j);
-			oled_data(i2c,*buffer[i][j]);
+			oled_data(i2c,buffer[i][j]);
 		}
 	}
 }
@@ -151,7 +150,7 @@ void oled_clock(char i2c, int time)
 	oled_Aprint(i2c, (time%10)+16);
 }
 
-void oled_clear_buffer(uint8_t *buffer[][128])
+void oled_clear_buffer(uint8_t buffer[][128])
 {
 	int i, j;
 	for (i=0; i<8; i++)
@@ -163,7 +162,7 @@ void oled_clear_buffer(uint8_t *buffer[][128])
 	}
 }
 
-void oled_update_buffer(Img_TypeDef *img, unsigned short img_num, uint8_t *buffer[][128])
+void oled_update_buffer(const uint8_t *image, unsigned short img_num, uint8_t buffer[][128])
 {
 	int i, j, cnt;
 	cnt = 0;
@@ -172,7 +171,7 @@ void oled_update_buffer(Img_TypeDef *img, unsigned short img_num, uint8_t *buffe
 		for (j = 0; j<128; j++)
 		{
 			cnt += 1;
-			buffer[i][j] = Goku2[cnt];	
+			buffer[i][j] = image[cnt];	
 		}
 	}
 }

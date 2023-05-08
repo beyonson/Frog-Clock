@@ -3,7 +3,7 @@
 #include "oled_drive.h"
 
 // frame buffer
-uint8_t *oled_buffer[8][128];
+uint8_t oled_buffer[8][128];
 
 int main(void)
 {
@@ -14,16 +14,16 @@ int main(void)
 	DelayMs(200);
 
 	// create image
-	Img_TypeDef *weew;
-	// weew->h = saitama_rows;
-	// weew->w = saitama_cols;
-	// weew->x_pos = 0;
-	// weew->y_pos = 0;
-	// weew->image[0] = saitama;
+	Img_TypeDef weew;
+	weew.h = Goku2_rows;
+	weew.w = Goku2_cols;
+	weew.x_pos = 0;
+	weew.y_pos = 0;
+	weew.image[0] = Goku2;
 
 	// // fill frame buffer
 	oled_clear_buffer(oled_buffer);
-	oled_update_buffer(weew, 0, oled_buffer);
+	oled_update_buffer(weew.image[0], 0, oled_buffer);
 	print_buffer(2, oled_buffer);
 
 	while(1){}
