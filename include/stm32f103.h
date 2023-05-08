@@ -59,16 +59,26 @@ typedef struct
 
 typedef struct
 {
-    vol uint32_t CRH;
-    vol uint32_t CRL;
-    vol uint32_t PRLH;
-    vol uint32_t PRLL;
-    vol uint32_t DIVH;
-    vol uint32_t DIVL;
-    vol uint32_t CNTH;
-    vol uint32_t CNTL;
-    vol uint32_t ALRH;
-    vol uint32_t ALRL;
+  vol uint16_t CRH;
+  uint16_t  RESERVED0;
+  vol uint16_t CRL;
+  uint16_t  RESERVED1;
+  vol uint16_t PRLH;
+  uint16_t  RESERVED2;
+  vol uint16_t PRLL;
+  uint16_t  RESERVED3;
+  vol uint16_t DIVH;
+  uint16_t  RESERVED4;
+  vol uint16_t DIVL;
+  uint16_t  RESERVED5;
+  vol uint16_t CNTH;
+  uint16_t  RESERVED6;
+  vol uint16_t CNTL;
+  uint16_t  RESERVED7;
+  vol uint16_t ALRH;
+  uint16_t  RESERVED8;
+  vol uint16_t ALRL;
+  uint16_t  RESERVED9;
 } RTC_TypeDef;
 
 typedef struct

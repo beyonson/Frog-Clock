@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include "startup.h"
 #include "gpio_drive.h"
+#include "oled_drive.h"
 
 __attribute__((section(".vector_table")))
 
@@ -52,5 +53,5 @@ void SysTick_Handler(void)
 
 void RTC_Handler(void)
 {
-  toggleGPIO(C, 13);
+  oled_print(2, "interrupt!");
 }
