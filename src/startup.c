@@ -91,7 +91,7 @@ void SysTick_Handler(void)
 
 void RTC_Handler(void)
 {
-  //toggleGPIO(C, 13);
+  toggleGPIO(C, 13);
 	RTC->CRL &= ~(1<<0);
   NVIC->ICPR[(((uint32_t)(int32_t)3) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)(int32_t)3) & 0x1FUL));
 }
