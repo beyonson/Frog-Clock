@@ -59,26 +59,36 @@ typedef struct
 
 typedef struct
 {
-  vol uint16_t CRH;
-  uint16_t  RESERVED0;
-  vol uint16_t CRL;
-  uint16_t  RESERVED1;
-  vol uint16_t PRLH;
-  uint16_t  RESERVED2;
-  vol uint16_t PRLL;
-  uint16_t  RESERVED3;
-  vol uint16_t DIVH;
-  uint16_t  RESERVED4;
-  vol uint16_t DIVL;
-  uint16_t  RESERVED5;
-  vol uint16_t CNTH;
-  uint16_t  RESERVED6;
-  vol uint16_t CNTL;
-  uint16_t  RESERVED7;
-  vol uint16_t ALRH;
-  uint16_t  RESERVED8;
-  vol uint16_t ALRL;
-  uint16_t  RESERVED9;
+      vol uint32_t IMR;
+      vol uint32_t EMR;
+      vol uint32_t RTSR;
+      vol uint32_t FTSR;
+      vol uint32_t SWIER;
+      vol uint32_t PR;
+} EXTI_TypeDef;
+
+typedef struct
+{
+      vol uint16_t CRH;
+      uint16_t  RESERVED0;
+      vol uint16_t CRL;
+      uint16_t  RESERVED1;
+      vol uint16_t PRLH;
+      uint16_t  RESERVED2;
+      vol uint16_t PRLL;
+      uint16_t  RESERVED3;
+      vol uint16_t DIVH;
+      uint16_t  RESERVED4;
+      vol uint16_t DIVL;
+      uint16_t  RESERVED5;
+      vol uint16_t CNTH;
+      uint16_t  RESERVED6;
+      vol uint16_t CNTL;
+      uint16_t  RESERVED7;
+      vol uint16_t ALRH;
+      uint16_t  RESERVED8;
+      vol uint16_t ALRL;
+      uint16_t  RESERVED9;
 } RTC_TypeDef;
 
 typedef struct
@@ -96,30 +106,27 @@ typedef struct
   vol uint8_t  IP[240U];               /*!< Offset: 0x300 (R/W)  Interrupt Priority Register (8Bit wide) */
         uint32_t RESERVED5[644U];
   vol uint32_t STIR;                   /*!< Offset: 0xE00 ( /W)  Software Trigger Interrupt Register */
-}  NVIC_TypeDef;
+} NVIC_TypeDef;
 
-// RCC base
+// Base addresses
 #define RCC_BASE    (vol uint32_t)0x40021000 // reset and clock control
 
-// GPIO bases
 #define GPIOA_BASE  (vol uint32_t)0x40010800
 #define GPIOB_BASE  (vol uint32_t)0x40010C00
 #define GPIOC_BASE  (vol uint32_t)0x40011000
 
-// I2C bases
 #define I2C1_BASE   (vol uint32_t)0x40005400
 #define I2C2_BASE   (vol uint32_t)0x40005800
 
-// SysTick base
 #define SCS_BASE    (vol uint32_t)0xE000E000
 #define STK_BASE    (SCS_BASE + 0x0010UL)
 #define NVIC_BASE   (SCS_BASE +  0x0100UL)
 
-// RTC base
 #define RTC_BASE    (vol uint32_t)0x40002800
 
-// PWR base
 #define PWR_BASE    (vol uint32_t)0x40007000
+
+#define EXTI_BASE   (vol uint32_t)0x40010400
 
 // declare typedefs
 #define RCC         ((RCC_TypeDef *) RCC_BASE)
@@ -132,6 +139,7 @@ typedef struct
 #define NVIC        ((NVIC_TypeDef *) NVIC_BASE)
 #define RTC         ((RTC_TypeDef *) RTC_BASE)
 #define PWR         ((PWR_TypeDef *) PWR_BASE)
+#define EXTI        ((EXTI_TypeDef *) EXTI_BASE)
 
 // void __disable_irq(void);
 // void __enable_irq(void);

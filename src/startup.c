@@ -25,7 +25,45 @@ const vector_table_t vectors[] = {
   0,
   0,
   0,
-  RTC_Handler
+  RTC_Handler,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  0,
+  RTC_Alarm_Handler
 };
 
 void Reset_Handler(void)
@@ -53,6 +91,14 @@ void SysTick_Handler(void)
 
 void RTC_Handler(void)
 {
-  RTC->CRL &= ~(1<<0);
   toggleGPIO(C, 13);
+	RTC->CRL &= ~(1<<0);
+  NVIC->ICPR[(((uint32_t)(int32_t)3) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)(int32_t)3) & 0x1FUL));
+}
+
+void RTC_Alarm_Handler(void)
+{
+  toggleGPIO(C, 13);
+  EXTI->PR |= 0x20000;
+  RTC->CRL &= ~(1<<1);
 }

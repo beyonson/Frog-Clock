@@ -12,10 +12,17 @@ void initRTC(void)
 	// RTC config sequence
 	while((RTC->CRL & 0x20) == 0) {}
 	RTC->CRL |= 0x0010; // put into config mode
-  	RTC->CRL  &=0xFFFFFFFB;
-	RTC->PRLH |= 0x0000;
+    RTC->CRL &= ~(1<<0); // clear second flag
+	RTC->PRLH &= 0x0000;
 	RTC->PRLL |= 0x7FFF;
-	RTC->CRH |= 0x0001; // enable OWIE
+	RTC->CRH |= 0x0001; // enable second interrupt
 	RTC->CRL &= ~(1<<4); // take out of config mode
 	while((RTC->CRL & 0x20) == 0) {}
+}
+
+void initAlarm(void)
+{
+    EXTI->RTSR |= 0x20000;
+    EXTI->FTSR &= 0xDFFFF;
+    EXTI->IMR  |= 0x20000;
 }
