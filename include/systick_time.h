@@ -1,6 +1,6 @@
-void systick_init(void);
+void systickInit(void);
 void DelayMs(unsigned long t);
-void systick_int(unsigned short uart_1_mgr[],unsigned short uart_2_mgr[],unsigned short uart_3_mgr[]);
-void systick_int_start(void);
+void systickInt(unsigned short uart_1_mgr[],unsigned short uart_2_mgr[],unsigned short uart_3_mgr[]);
+void systickIntStart(void);
 void Delaymicro(void);
 void DelayUs(unsigned long t);

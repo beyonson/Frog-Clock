@@ -11,7 +11,7 @@ void __enable_irq(void)
     NVIC->ISER[8U] |= 0xFFFFFFFF;
 }
 
-void systick_init(void)
+void systickInit(void)
 {
 	SysTick->CTRL = 0;
 	SysTick->LOAD = 0x00FFFFFF;
@@ -48,7 +48,7 @@ void DelayMs(unsigned long t)
 		}
 }
 
-void systick_int_start(void)
+void systickIntStart(void)
 {
 	__disable_irq();
 	SysTick->CTRL = 0;
@@ -58,7 +58,7 @@ void systick_int_start(void)
 	__enable_irq();
 }
 
-void systick_int(unsigned short uart_1_mgr[],unsigned short uart_2_mgr[],unsigned short uart_3_mgr[])
+void systickInt(unsigned short uart_1_mgr[],unsigned short uart_2_mgr[],unsigned short uart_3_mgr[])
 {
 	if(uart_1_mgr[0]!=0)
 	{
@@ -67,7 +67,7 @@ void systick_int(unsigned short uart_1_mgr[],unsigned short uart_2_mgr[],unsigne
 		uart_1_mgr[0] = 0;
 		uart_1_mgr[1] = 1;
 		uart_1_mgr[5] = 0;
-		systick_init();
+		systickInit();
 	 }
 	 else
 		{
@@ -81,7 +81,7 @@ void systick_int(unsigned short uart_1_mgr[],unsigned short uart_2_mgr[],unsigne
 		uart_2_mgr[0] = 0;
 		uart_2_mgr[1] = 1;
 		uart_2_mgr[5] = 0;
-		systick_init();
+		systickInit();
 	 }
 	 else
 		{
@@ -95,7 +95,7 @@ void systick_int(unsigned short uart_1_mgr[],unsigned short uart_2_mgr[],unsigne
 		uart_3_mgr[0] = 0;
 		uart_3_mgr[1] = 1;
 		uart_3_mgr[5] = 0;
-		systick_init();
+		systickInit();
 	 }
 	 else
 		{

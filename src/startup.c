@@ -53,5 +53,6 @@ void SysTick_Handler(void)
 
 void RTC_Handler(void)
 {
-  oled_print(2, "interrupt!");
+  RTC->CRL &= ~(1<<0);
+  toggleGPIO(C, 13);
 }
