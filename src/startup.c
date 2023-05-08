@@ -20,7 +20,11 @@ const vector_table_t vectors[] = {
   0,
   0,
   0,
-  SysTick_Handler
+  SysTick_Handler,
+  0,
+  0,
+  0,
+  RTC_Handler
 };
 
 void Reset_Handler(void)
@@ -44,4 +48,9 @@ void Reset_Handler(void)
 void SysTick_Handler(void)
 {
 	toggleGPIO(C, 13);
+}
+
+void RTC_Handler(void)
+{
+  toggleGPIO(C, 13);
 }

@@ -3,6 +3,7 @@ typedef void (*element_t)(void);
 
 void Reset_Handler(void);
 void SysTick_Handler(void);
+void RTC_Handler(void);
 
 typedef union {
     element_t isr;

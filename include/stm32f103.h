@@ -28,8 +28,6 @@ typedef struct
     vol uint32_t APB1ENR;
     vol uint32_t BDCR;
     vol uint32_t CSR;
-    vol uint32_t AHBRSTR;
-    vol uint32_t CFGR2;
 } RCC_TypeDef;
 
 typedef struct
@@ -52,6 +50,26 @@ typedef struct
     vol uint32_t VAL;
     vol uint32_t CALIB;
 } SysTick_TypeDef;
+
+typedef struct
+{
+      vol uint32_t CR;
+      vol uint32_t CSR;
+} PWR_TypeDef;
+
+typedef struct
+{
+    vol uint32_t CRH;
+    vol uint32_t CRL;
+    vol uint32_t PRLH;
+    vol uint32_t PRLL;
+    vol uint32_t DIVH;
+    vol uint32_t DIVL;
+    vol uint32_t CNTH;
+    vol uint32_t CNTL;
+    vol uint32_t ALRH;
+    vol uint32_t ALRL;
+} RTC_TypeDef;
 
 typedef struct
 {
@@ -87,6 +105,12 @@ typedef struct
 #define STK_BASE    (SCS_BASE + 0x0010UL)
 #define NVIC_BASE   (SCS_BASE +  0x0100UL)
 
+// RTC base
+#define RTC_BASE    (vol uint32_t)0x40002800
+
+// PWR base
+#define PWR_BASE    (vol uint32_t)0x40007000
+
 // declare typedefs
 #define RCC         ((RCC_TypeDef *) RCC_BASE)
 #define GPIOA       ((GPIO_TypeDef *) GPIOA_BASE)
@@ -96,6 +120,8 @@ typedef struct
 #define I2C2        ((I2C_TypeDef *) I2C2_BASE)
 #define SysTick     ((SysTick_TypeDef *) STK_BASE)
 #define NVIC        ((NVIC_TypeDef *) NVIC_BASE)
+#define RTC         ((RTC_TypeDef *) RTC_BASE)
+#define PWR         ((PWR_TypeDef *) PWR_BASE)
 
 // void __disable_irq(void);
 // void __enable_irq(void);
