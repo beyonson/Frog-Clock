@@ -1,3 +1,11 @@
+#ifndef __STARTUP_H
+#define __STARTUP_H
+
+#include "gpio_drive.h"
+#include "oled_drive.h"
+#include "rtc_drive.h"
+#include "global.h"
+
 #define DEFAULT __attribute__((weak, alias("Default_Handler")))
 typedef void (*element_t)(void);
 
@@ -19,3 +27,5 @@ extern uint32_t _data;
 extern uint32_t _edata;
 extern uint32_t _bss;
 extern uint32_t _ebss;
+
+#endif // __STARTUP_H

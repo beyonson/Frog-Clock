@@ -1,7 +1,5 @@
 #include <stdint.h>
 #include "startup.h"
-#include "gpio_drive.h"
-#include "oled_drive.h"
 
 __attribute__((section(".vector_table")))
 
@@ -91,9 +89,9 @@ void SysTick_Handler(void)
 
 void RTC_Handler(void)
 {
-  toggleGPIO(C, 13);
-	RTC->CRL &= ~(1<<0);
+  sec += 5;
   NVIC->ICPR[(((uint32_t)(int32_t)3) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)(int32_t)3) & 0x1FUL));
+	RTC->CRL &= ~(1<<0);
 }
 
 void RTC_Alarm_Handler(void)

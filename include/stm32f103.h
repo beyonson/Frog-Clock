@@ -141,8 +141,8 @@ typedef struct
 #define PWR         ((PWR_TypeDef *) PWR_BASE)
 #define EXTI        ((EXTI_TypeDef *) EXTI_BASE)
 
-// void __disable_irq(void);
-// void __enable_irq(void);
+void __disable_irq(void);
+void __enable_irq(void);
 
 #endif // __STM32F103_H
 
