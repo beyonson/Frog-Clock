@@ -8,13 +8,11 @@ uint8_t oled_buffer[8][128];
 
 int main(void)
 {
-	NVIC->ISER[(((uint32_t)(int32_t)3) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)(int32_t)3) & 0x1FUL));
 	systickInit();
 	initGPIO(C, 13, OUTPUT50, GP_PP);
-
 	initRTC();
-
 	oled_init(2);
+
 	oled_blank(2);
 
 	while(1){
@@ -28,4 +26,8 @@ int main(void)
 		DelayMs(1);
 		print_buffer(2, oled_buffer);
 	}
+}
+
+void clock(char i2c, int time)
+{
 }

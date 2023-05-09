@@ -2,18 +2,19 @@
 
 void initRTC(void)
 {
+    NVIC->ISER[(((uint32_t)(int32_t)3) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)(int32_t)3) & 0x1FUL));
 	RCC->APB1ENR |= 0x18000000; // enable PWR and BKP clocks
 	PWR->CR |= 0x100; // enable access to RTC and BKP register
-
 	RCC->BDCR |= 1; // enable LSE
 	while(!(RCC->BDCR & 0x2)){} // wait on LSE clock
-	RCC->BDCR |= 0x8100; // enable RTC and select clock
+	RCC->BDCR |= 0x8300; // enable RTC and select clock
 
 	// RTC config sequence
 	while((RTC->CRL & 0x20) == 0) {}
 	RTC->CRL |= 0x0010; // put into config mode
     RTC->CRL &= ~(1<<0); // clear second flag
 	RTC->PRLH &= 0x0000;
+    RTC->PRLL &= 0x0000;
 	RTC->PRLL |= 0x7FFF;
 	RTC->CRH |= 0x0001; // enable second interrupt
 	RTC->CRL &= ~(1<<4); // take out of config mode
