@@ -151,9 +151,9 @@ void oled_update_buffer(const uint8_t *img, uint8_t buffer[][128])
 {
 	int i, j, cnt;
 	cnt = 0;
-	for (i = 1; i<8; i++) 
+	for (i = 2; i<8; i++) 
 	{
-		for (j = 0; j<110; j++)
+		for (j = 0; j<108; j++)
 		{
 			cnt += 1;
 			buffer[i][j] = img[cnt];	
@@ -180,7 +180,6 @@ void update_time_buffer(char str[], uint8_t buffer[][128])
 			col += 1;
 		}
 		i++;
-		col+15;
 		row=0;
 	}
 }

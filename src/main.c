@@ -7,24 +7,25 @@
 // frame buffer
 uint8_t oled_buffer[8][128];
 int sec = 0;
-int min = 33;
-int hour = 17;
+int min = 13;
+int hour = 23;
 
 int main(void)
 {
+	// initialize timers
 	__disable_irq();
 	systickInit();
-	initGPIO(C, 13, OUTPUT50, GP_PP);
 	initRTC();
 	__enable_irq();
 	
+	// intialize OLED
 	oledInit(2);
 	oled_blank(2);
 
 	char timeStr[5];
 	timeStr[2] = 10;
 	while(1){
-
+		// check for time overflows
 		if (sec >= 60) {
 			sec = 0;
 			min += 1;
@@ -42,13 +43,7 @@ int main(void)
 		timeStr[4] = (min%10);
 
 		oled_clear_buffer(oled_buffer);
-		oled_update_buffer(jake0, oled_buffer);
-		update_time_buffer(timeStr,oled_buffer);
-		DelayMs(1);
-		print_buffer(2, oled_buffer);
-
-		oled_clear_buffer(oled_buffer);
-		oled_update_buffer(jake2, oled_buffer);
+		oled_update_buffer(jakesleep, oled_buffer);
 		update_time_buffer(timeStr,oled_buffer);
 		DelayMs(1);
 		print_buffer(2, oled_buffer);
