@@ -2,7 +2,6 @@
 
 void initRTC(void)
 {
-    NVIC->ISER[(((uint32_t)(int32_t)3) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)(int32_t)3) & 0x1FUL));
 	RCC->APB1ENR |= 0x18000000; // enable PWR and BKP clocks
 	PWR->CR |= 0x100; // enable access to RTC and BKP register
 	RCC->BDCR |= 1; // enable LSE
@@ -19,6 +18,8 @@ void initRTC(void)
 	RTC->CRH |= 0x0001; // enable second interrupt
 	RTC->CRL &= ~(1<<4); // take out of config mode
 	while((RTC->CRL & 0x20) == 0) {}
+
+    NVIC->ISER[(((uint32_t)(int32_t)3) >> 5UL)] = (uint32_t)(1UL << (((uint32_t)(int32_t)3) & 0x1FUL));
 }
 
 void initAlarm(void)
@@ -26,4 +27,9 @@ void initAlarm(void)
     EXTI->RTSR |= 0x20000;
     EXTI->FTSR &= 0xDFFFF;
     EXTI->IMR  |= 0x20000;
+}
+
+int readSysTime(void)
+{
+    return RTC->CNTL;
 }

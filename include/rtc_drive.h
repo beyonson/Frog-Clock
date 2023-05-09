@@ -5,5 +5,6 @@
 
 void initRTC(void);
 void initAlarm(void);
+int readSysTime(void);
 
 #endif // __RTC_DRIVE_H
