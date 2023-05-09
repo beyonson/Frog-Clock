@@ -8,7 +8,7 @@
 uint8_t oled_buffer[8][128];
 int sec = 0;
 int min = 33;
-int hour = 14;
+int hour = 17;
 
 int main(void)
 {
@@ -18,11 +18,11 @@ int main(void)
 	initRTC();
 	__enable_irq();
 	
-	oled_init(2);
+	oledInit(2);
 	oled_blank(2);
 
-	char timeStr[6] = "";
-	timeStr[2] = ':';
+	char timeStr[5];
+	timeStr[2] = 10;
 	while(1){
 
 		if (sec >= 60) {
@@ -36,20 +36,20 @@ int main(void)
 				}
 			}
 		}
-		timeStr[0] = ((hour/10)%10)+48;
-		timeStr[1] = (hour%10)+48;
-		timeStr[3] = ((min/10)%10)+48;
-		timeStr[4] = (min%10)+48;
+		timeStr[0] = ((hour/10)%10);
+		timeStr[1] = (hour%10);
+		timeStr[3] = ((min/10)%10);
+		timeStr[4] = (min%10);
 
 		oled_clear_buffer(oled_buffer);
 		oled_update_buffer(jake0, oled_buffer);
-		update_str_buffer(0,0,timeStr,oled_buffer);
+		update_time_buffer(timeStr,oled_buffer);
 		DelayMs(1);
 		print_buffer(2, oled_buffer);
 
 		oled_clear_buffer(oled_buffer);
 		oled_update_buffer(jake2, oled_buffer);
-		update_str_buffer(0,0,timeStr,oled_buffer);
+		update_time_buffer(timeStr,oled_buffer);
 		DelayMs(1);
 		print_buffer(2, oled_buffer);
 	}

@@ -3,33 +3,33 @@
 
 void oled_cmd_1byte(char i2c, char data)
 {
-	i2c_start(i2c);
-	i2c_add(i2c, 0x78, 0); // choosing oled address
+	i2cStart(i2c);
+	i2cAdd(i2c, 0x78, 0); // choosing oled address
 	
-	i2c_data(i2c, 0x00); // send command
+	i2cData(i2c, 0x00); // send command
 	
-	i2c_data(i2c, data);
+	i2cData(i2c, data);
 	
-	i2c_stop(i2c);
+	i2cStop(i2c);
 }
 
 void oled_cmd_2byte(char i2c, char data[])
 {
 	int i=0;
-	i2c_start(i2c);
-	i2c_add(i2c, 0x78, 0); // choosing oled address
+	i2cStart(i2c);
+	i2cAdd(i2c, 0x78, 0); // choosing oled address
 	
-	i2c_data(i2c, 0x00); // send command
+	i2cData(i2c, 0x00); // send command
 	for(i=0; i<2; i++)
-		{i2c_data(i2c, data[i]);}
+		{i2cData(i2c, data[i]);}
 	
-	i2c_stop(i2c);
+	i2cStop(i2c);
 }
 
 // oled initialization
-void oled_init(char i2c)
+void oledInit(char i2c)
 {
-	i2c_init(i2c, i2c_FM);
+	i2cInit(i2c, i2c_FM);
 	
 	char cmd[] = {0xA8, 0x3F};
 	oled_cmd_2byte(i2c, cmd);
@@ -61,24 +61,24 @@ void oled_init(char i2c)
 
 
 // oled data
-void oled_data(char i2c, char data)
+void oledData(char i2c, char data)
 {
-	i2c_start(i2c);
-	i2c_add(i2c, 0x78, 0); // choosing oled address
+	i2cStart(i2c);
+	i2cAdd(i2c, 0x78, 0); // choosing oled address
 	
-	i2c_data(i2c, 0x40); // send data
+	i2cData(i2c, 0x40); // send data
 	
-	i2c_data(i2c, data);
+	i2cData(i2c, data);
 	
-	i2c_stop(i2c);
+	i2cStop(i2c);
 }
 
 // oled position
-void oled_pos(char i2c, char Ypos, char Xpos)
+void oled_pos(char i2c, char yPos, char xPos)
 {
-	oled_cmd_1byte(i2c, 0x00 + (0x0F & Xpos)); // x position
-	oled_cmd_1byte(i2c, 0x10 + (0x0F & (Xpos>>4)));
-	oled_cmd_1byte(i2c, 0xB0 + Ypos); // y position
+	oled_cmd_1byte(i2c, 0x00 + (0x0F & xPos)); // x position
+	oled_cmd_1byte(i2c, 0x10 + (0x0F & (xPos>>4)));
+	oled_cmd_1byte(i2c, 0xB0 + yPos); // y position
 }
 
 // blank screen
@@ -90,7 +90,7 @@ void oled_blank(char i2c)
 	{
 		for (j=0; j<128; j++)
 		{
-			oled_data(i2c, 0x00);
+			oledData(i2c, 0x00);
 		}
 	}
 	oled_pos(i2c, 0, 0);
@@ -105,16 +105,16 @@ void oled_print(char i2c, char str[])
 	{
 		for(j=0; j<5; j++)
 		{
-			oled_data(i2c, ASCII[(str[i]-32)][j]);
+			oledData(i2c, ASCII[(str[i]-32)][j]);
 		}
 		i++;
 	}
 }
 
 // message
-void oled_msg(char i2c, char Ypos, char Xpos, char str[])
+void oled_msg(char i2c, char yPos, char xPos, char str[])
 {
-	oled_pos(i2c, Ypos, Xpos);
+	oled_pos(i2c, yPos, xPos);
 	oled_print(i2c, str);
 }
 
@@ -124,7 +124,7 @@ void oled_Aprint(char i2c, int asc)
 	int j;
 	for(j=0; j<5; j++)
 	{
-		oled_data(i2c, ASCII[asc][j]);
+		oledData(i2c, ASCII[asc][j]);
 	}
 }
 
@@ -151,7 +151,7 @@ void oled_update_buffer(const uint8_t *img, uint8_t buffer[][128])
 {
 	int i, j, cnt;
 	cnt = 0;
-	for (i = 0; i<8; i++) 
+	for (i = 1; i<8; i++) 
 	{
 		for (j = 0; j<110; j++)
 		{
@@ -161,20 +161,44 @@ void oled_update_buffer(const uint8_t *img, uint8_t buffer[][128])
 	}
 }
 
-void update_str_buffer(short Ypos, short Xpos,char str[], uint8_t buffer[][128])
+void update_time_buffer(char str[], uint8_t buffer[][128])
 {
-int i,j, cnt_col,cnt_row;
+	int i, j, row, col;
+	col = 0;
+	row = 0;
+	i = 1;
+	while(i<6)
+	{
+		for (j = 0; j<45; j++)
+		{
+			buffer[row][col] = BIGASCII[str[i-1]][j];
+			if (col >= (i*15))
+			{
+				col -= 15;
+				row += 1;
+			}
+			col += 1;
+		}
+		i++;
+		col+15;
+		row=0;
+	}
+}
+
+void update_str_buffer(short yPos, short xPos,char str[], uint8_t buffer[][128])
+{
+	int i,j, cnt_col,cnt_row;
 	
-cnt_col= Xpos;
-cnt_row = Ypos;
-i=0;
+	cnt_col= xPos;
+	cnt_row = yPos;
+	i=0;
 	while(str[i])
 	{
 		if(cnt_row>8)
 		{break;}
 		for(j=0;j<5;j++)
 		{
-			buffer[cnt_row][cnt_col] = ASCII[str[i]-32][j];
+			buffer[cnt_row][cnt_col] = BIGASCII[str[i]-32][j];
 			if((cnt_col+1)>127)
 			{
 				if((cnt_row+1)>8)
@@ -183,7 +207,7 @@ i=0;
 				}
 				else{
 					cnt_row ++;
-					cnt_col = Xpos;
+					cnt_col = xPos;
 				}
 			}
 			else
@@ -193,19 +217,18 @@ i=0;
 		}
 		i++;
 	}
-
 }
 
 //print buffer
 void print_buffer(char i2c, uint8_t buffer[][128])
 {
-	oled_pos(i2c,1,0);
+	oled_pos(i2c,0,0);
 	int i,j;
 	for (i=0;i<8;i++)
 	{
 		for(j=0;j<128;j++)
 		{
-			oled_data(i2c,buffer[i][j]);
+			oledData(i2c,buffer[i][j]);
 		}
 	}
 }

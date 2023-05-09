@@ -1,6 +1,6 @@
 #include "i2c_drive.h"
 
-void i2c_init(char i2c, unsigned short speed_mode)
+void i2cInit(char i2c, unsigned short speed_mode)
 {
 	// enable io clock
 	RCC->APB2ENR |= 1; 
@@ -44,7 +44,7 @@ void i2c_init(char i2c, unsigned short speed_mode)
 }
 
 // sending the address and r/w
-void i2c_add(char i2c, char address, char RW)
+void i2cAdd(char i2c, char address, char RW)
 {
 	volatile int tmp;
 	if (i2c==1) 
@@ -73,7 +73,7 @@ void i2c_add(char i2c, char address, char RW)
 }
 
 // start 
-void i2c_start(char i2c)
+void i2cStart(char i2c)
 {
 	if (i2c==1) 
 	{
@@ -88,7 +88,7 @@ void i2c_start(char i2c)
 }
 
 // sending data
-void i2c_data(char i2c, char data)
+void i2cData(char i2c, char data)
 {
 	if (i2c==1)
 	{
@@ -105,7 +105,7 @@ void i2c_data(char i2c, char data)
 }
 
 // stop
-void i2c_stop(char i2c)
+void i2cStop(char i2c)
 {
 	volatile int tmp;
 	if (i2c==1) 
@@ -127,12 +127,12 @@ void i2c_stop(char i2c)
 void i2c_write(char i2c, char address, char data[])
 {
 	int i=0;
-	i2c_start(i2c);
-	i2c_add(i2c, address, 0);
+	i2cStart(i2c);
+	i2cAdd(i2c, address, 0);
 	while(data[i])
 	{	
-		i2c_data(i2c, data[i]);
+		i2cData(i2c, data[i]);
 		i++;
 	}
-	i2c_stop(i2c);
+	i2cStop(i2c);
 }
