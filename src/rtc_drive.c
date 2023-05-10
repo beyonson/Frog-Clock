@@ -18,7 +18,7 @@ void initRTC(void)
 	RTC->PRLL |= 0xC4B3;
     RTC->CRH |= 0x0001; // enable second interrupt
 	RTC->CRL &= ~(1<<4); // take out of config mode
-	while((RTC->CRL & 0x20) == 0) {toggleGPIO(C, 13);DelayMs(20);}
+	while((RTC->CRL & 0x20) == 0) {toggleGPIO(C, 13);delayMs(20);}
 }
 
 void initAlarm(void)

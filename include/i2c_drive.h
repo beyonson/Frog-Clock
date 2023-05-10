@@ -15,5 +15,4 @@ void i2cAdd(char i2c, char address, char RW);
 void i2cData(char i2c, char data);
 void i2cStop(char i2c);
 
-
 #endif // __I2C_DRIVE_H

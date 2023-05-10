@@ -8,33 +8,33 @@ void systickInit(void)
 	SysTick->VAL = 0;
 	SysTick->CTRL = 5;
 }
-void Delaymicro(void)
+void delayMicro(void)
 {
 	SysTick->LOAD = 72;
 	SysTick->VAL = 0;
 	while((SysTick->CTRL & 0x00010000) == 0);
 }
 
-void DelayUs(unsigned long t)
+void delayUs(unsigned long t)
 {
 	for(;t>0;t--)
 		{
-			Delaymicro();
+			delayMicro();
 		}
 }
 
-void DelayMillis(void)
+void delayMillis(void)
 {
 	SysTick->LOAD = 0x11940;
 	SysTick->VAL = 0;
 	while((SysTick->CTRL & 0x00010000) == 0);
 }
 
-void DelayMs(unsigned long t)
+void delayMs(unsigned long t)
 {
 	for(;t>0;t--)
 		{
-			DelayMillis();
+			delayMillis();
 		}
 }
 
